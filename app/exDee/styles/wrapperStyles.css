@@ -1,0 +1,8 @@
+.exDee-wrapper {
+	width: 100vw;
+	height: 100vh;
+	perspective: 500px;
+	perspective-origin: 50% 50%;
+	-webkit-perspective-origin: 50% 50%;
+	backface-visibility: hidden;
+}
