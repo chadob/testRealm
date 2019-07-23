@@ -9,6 +9,10 @@ class RegularContainer extends Component {
     this.createShape = this.createShape.bind(this);
     this.multiplyMatrices = this.multiplyMatrices.bind(this);
     this.createStyles = this.createStyles.bind(this);
+    this.state = {
+      sides: {},
+      styles: {}
+    }
   }
   createShape(numSides, length, className) {
     this.props.createShape(numSides, length, className);
@@ -20,14 +24,16 @@ class RegularContainer extends Component {
     this.props.multiplyMatrices(a,b);
   }
   componentDidMount() {
-    this.createShape(4, 200, 'bob', this.multiplyMatrices);
-    this.createStyles();
+    this.setState(sides, this.createShape(4, 200, 'bob', this.multiplyMatrices)();
+    this.setState(styles, this.createStyles('bob', 100, 100, 'red', 4)());
   }
 
   render(){
     console.log(this.props)
     return(
       <Regular
+        sides={this.state.sides}
+        styles={this.state.styles}
         length={this.props.length}
         height={this.props.height}
         width={this.props.width}
