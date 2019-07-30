@@ -4,7 +4,9 @@ const regular = (
     width: 200,
     length: 400,
     windowHeight: 0,
-    windowWidth: 0
+    windowWidth: 0,
+    numSides: 100,
+    className: 'bob'
   }, action) => {
     switch (action.type) {
       case 'RESIZE_WINDOW':

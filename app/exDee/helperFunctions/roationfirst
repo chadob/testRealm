@@ -1,0 +1,9 @@
+startRot = multiply(sides[i][0], rotYMatrix);
+endRot = multiply(sides[i][1], rotYMatrix);
+translation = subtract(sides[i][1], startRot);
+console.log(sides[i][1], startRot, translation)
+transMatrix = [[1,0,0,translation[0]], [0,1,0,translation[1]], [0,0,1,translation[2]], [0, 0, 0, 1]]
+newStart = sides[i][1];
+newEnd = multiply(transMatrix, endRot.concat(1));
+curSide = [newStart, newEnd.slice(0,3)];
+sides.push(curSide);

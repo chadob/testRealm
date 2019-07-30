@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import createShape from '../helperFunctions/createShape.js';
+import createRing from '../helperFunctions/createRing.js';
+import createSphere from '../helperFunctions/createSphere.js';
 import createStyles from '../helperFunctions/createStyles.js';
-import Regular from '../components/regular'
+import Sphere from '../components/regular'
 
-class RegularContainer extends Component {
+class SphereContainer extends Component {
   constructor(props) {
     super(props)
-    this.createShape = this.createShape.bind(this);
+    this.createRing = this.createRing.bind(this);
+    this.createSphere = this.createSphere.bind(this);
     this.createStyles = this.createStyles.bind(this);
     this.state = {
       sides: [],
       styles: {}
     }
   }
-  createShape(numSides, width, className) {
-    return createShape(numSides, width, className)
+  createRing(numSides, width, axis, startPt) {
+    return createRing(numSides, width, axis, startPt)
+  }
+  createSphere(numSides, width, createRing) {
+    return createSphere(numSides, width, createRing)
   }
   createStyles(className, width, height, background, sides, numSides) {
     return createStyles(className, width, height, background, sides, numSides);
   }
   componentDidMount() {
-    var sides = this.createShape(this.props.numSides, this.props.width, this.props.className);
+    var sides = this.createSphere(this.props.numSides, this.props.width, this.createRing);
+    console.log(sides)
     this.setState((state, props) => {
       return {
         ...state,
@@ -33,7 +39,7 @@ class RegularContainer extends Component {
 
   render(){
     return(
-      <Regular
+      <Sphere
         sides={this.state.sides}
         styles={this.state.styles}
         length={this.props.length}
@@ -56,4 +62,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(RegularContainer)
+)(SphereContainer)

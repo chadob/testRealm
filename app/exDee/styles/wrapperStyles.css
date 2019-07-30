@@ -5,4 +5,5 @@
 	perspective-origin: 50% 50%;
 	-webkit-perspective-origin: 50% 50%;
 	backface-visibility: hidden;
+	transform-style: preserve-3d;
 }

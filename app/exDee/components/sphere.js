@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Regular extends React.Component {
+class Sphere extends React.Component {
   render() {
     return (
       <div className="this.props.className">
@@ -16,4 +16,4 @@ class Regular extends React.Component {
     );
   }
 }
-export default Regular;
+export default Sphere;
