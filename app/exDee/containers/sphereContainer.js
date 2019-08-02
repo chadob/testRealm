@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import createRing from '../helperFunctions/createRing.js';
 import createSphere from '../helperFunctions/createSphere.js';
 import createStyles from '../helperFunctions/createStyles.js';
-import Sphere from '../components/regular'
+import Sphere from '../components/sphere'
 
 class SphereContainer extends Component {
   constructor(props) {
@@ -16,8 +16,8 @@ class SphereContainer extends Component {
       styles: {}
     }
   }
-  createRing(numSides, width, axis, startPt) {
-    return createRing(numSides, width, axis, startPt)
+  createRing(numSides, width, axis, startPt, endPt) {
+    return createRing(numSides, width, axis, startPt, endPt)
   }
   createSphere(numSides, width, createRing) {
     return createSphere(numSides, width, createRing)

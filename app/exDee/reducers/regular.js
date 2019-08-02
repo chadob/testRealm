@@ -1,11 +1,11 @@
 const regular = (
   state = {
-    height: 200,
-    width: 200,
-    length: 400,
+    height: 20,
+    width: 20,
+    length: 20,
     windowHeight: 0,
     windowWidth: 0,
-    numSides: 100,
+    numSides: 4,
     className: 'bob'
   }, action) => {
     switch (action.type) {
