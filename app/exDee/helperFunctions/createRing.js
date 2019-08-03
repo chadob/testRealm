@@ -11,28 +11,6 @@ function createRing(numSides, width, axis, startPt, endPt) {
     z: [ [Math.cos(-1 * angle), -1 * Math.sin(-1 * angle), 0], [Math.sin(-1 * angle), Math.cos(-1 * angle), 0], [0, 0, 1]]
   }
   var sides = [[startPt, endPt]];
-  // if (axis === "x") {
-  //   sides = [
-  //     /*side 1 */  [
-  //       /* start point: */ startPt,
-  //       /*end point: */[0,width,0]
-  //     ]
-  //   ];
-  // } else if (axis === "y") {
-  //   sides = [
-  //     /*side 1 */  [
-  //       /* start point: */ startPt,
-  //       /*end point: */[width,0,0]
-  //     ]
-  //   ];
-  // } else {
-  //   sides = [
-  //     /*side 1 */  [
-  //       /* start point: */ startPt,
-  //       /*end point: */[0,0,0]
-  //     ]
-  //   ];
-  // }
   console.log(sides)
   var curSide, startRot, endRot, newStart, newEnd, translation, transMatrix, curAngle;
   for (var i = 0; i < numSides - 1; i++) {

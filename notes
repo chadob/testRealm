@@ -1,3 +1,4 @@
 1. Figure out how tochoose what axis to rotate around in createStyles.js
 2. need to add angle of current side in the for loop in createRing.js
 3. Can write function to find rotatex and rotatey by dividing by 100
+4. Positive values of RotateX turn away from you like opening a laptop
