@@ -14,7 +14,7 @@ function createStyles(className, width, height, background, sides, numSides) {
         width: width,
         height: height,
         background: background,
-        transform: "translateX(" + side[0][0] + "px) translateY(" + side[0][1] + "px) translateZ(" + side[0][2] + "px) rotateX(" + ((180 -(numSides-2) * 180 / numSides) * sideIdx)  + "deg) rotateY(" + ((180 -(numSides-2) * 180 / numSides) * ringIdx)  + "deg) "
+        transform: "translateX(" + side[0][0] + "px) translateY(" + side[0][1] + "px) translateZ(" + side[0][2] + "px) rotateX(" + ((180 -(numSides-2) * 180 / numSides) * sideIdx)  + "deg) rotateY(" + ((180 -(numSides-2) * 180 / numSides) * ringIdx)  + "deg)  "
       }
     })
   });

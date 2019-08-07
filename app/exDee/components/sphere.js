@@ -12,6 +12,8 @@ class Sphere extends React.Component {
                 console.log(side)
                 return (
                   <div key={"ring"+ringIdx+"side"+sideIdx} className={this.props.className + "Ring" + ringIdx + "Side" + sideIdx} style={this.props.styles["ring" + ringIdx + "side" + sideIdx]}>
+                    <div className="top-left-corner">
+                    </div>
                   </div>
                 )
               })
