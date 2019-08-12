@@ -5,7 +5,7 @@ const regular = (
     length: 20,
     windowHeight: 0,
     windowWidth: 0,
-    numSides: 4,
+    numSides: 2,
     className: 'bob'
   }, action) => {
     switch (action.type) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import createRing from '../helperFunctions/createRing.js';
+import createRing from '../helperFunctions/createRingAroundAnyAxis.js';
 import createSphere from '../helperFunctions/createSphere.js';
 import createStyles from '../helperFunctions/createStyles.js';
 import Sphere from '../components/sphere'
@@ -16,8 +16,8 @@ class SphereContainer extends Component {
       styles: {}
     }
   }
-  createRing(numSides, width, axis, startPt, endPt) {
-    return createRing(numSides, width, axis, startPt, endPt)
+  createRing(numSides, width, vector, figure) {
+    return createRing(numSides, width, vector, figure)
   }
   createSphere(numSides, width, createRing) {
     return createSphere(numSides, width, createRing)

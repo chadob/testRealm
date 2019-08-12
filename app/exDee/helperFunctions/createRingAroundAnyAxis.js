@@ -1,36 +1,48 @@
-function createRing(numSides, width, vector, figure) {
-  console.log(figure)
-  var angleDeg = (180 - (numSides-2) * 180 / numSides);
-  var angle = (180 - (numSides-2) * 180 / numSides) * Math.PI / 180;
-  //rotation around y axis
-  var curAngle, sides, curSide, startRot, endRot, newStart, newEnd, translation, transMatrix, curAngle;
+import { multiply, add, subtract } from 'mathjs';
+//rotates square set of points counterclockwise around axis
+//this means that if the increases when it is facing you, it then goes counterclockwise around it
+function rotAroundVector(angle, vector, figure) {
   var rotAroundVector = [
     [
-      Math.cos(angle) + vector[x] * vector[x] * (1 - Math.cos(angle)),
-      vector[x] * vector[y] * (1 - Math.cos(angle)) - vector[z] * Math.sin(angle),
-      vector[x] * vector[z] * (1 - Math.cos(angle)) + vector[y] * Math.sin(angle)
+      Math.cos(angle) + vector[0] * vector[0] * (1 - Math.cos(angle)),
+      vector[0] * vector[1] * (1 - Math.cos(angle)) - vector[2] * Math.sin(angle),
+      vector[0] * vector[2] * (1 - Math.cos(angle)) + vector[1] * Math.sin(angle)
     ],
     [
-      vector[y] * vector[x] * (1 - Math.cos(angle)) + vector[z] * Math.sin(angle),
-      Math.cos(angle) + vector[y] * vector[y] * (1 - Math.cos(angle)),
-      vector[y] * vector[z] * (1 - Math.cos(angle)) - vector[x] * Math.sin(angle)
+      vector[1] * vector[0] * (1 - Math.cos(angle)) + vector[2] * Math.sin(angle),
+      Math.cos(angle) + vector[1] * vector[1] * (1 - Math.cos(angle)),
+      vector[1] * vector[2] * (1 - Math.cos(angle)) - vector[0] * Math.sin(angle)
     ],
     [
-      vector[z] * vector[x] * (1 - Math.cos(angle)) - vector[y] * Math.sin(angle),
-      vector[z] * vector[y] * (1 - Math.cos(angle)) + vector[x] * Math.sin(angle)
-      Math.cos(angle) + vector[z] * vector[z] * (1 - Math.cos(angle)),
+      vector[2] * vector[0] * (1 - Math.cos(angle)) - vector[1] * Math.sin(angle),
+      vector[2] * vector[1] * (1 - Math.cos(angle)) + vector[0] * Math.sin(angle),
+      Math.cos(angle) + vector[2] * vector[2] * (1 - Math.cos(angle))
     ],
   ]
-  for (var i = 0; i < numSides - 1; i++) {
-    curAngle = angle * (i + 1)
-    var botLeftRot = multiply(figure[3], rotAroundVector);
-    translation = subtract(figure[0], botLeftRot)
-    transMatrix = [[1,0,0,translation[0]], [0,1,0,translation[1]], [0,0,1,translation[2]], [0, 0, 0, 1]]
-    newTopLeft = multiply(transMatrix, figure[0].concat(1);
-    newTopRight = multiply(transMatrix, figure[1].concat(1)
-    curSide = [newTopLeft.slice(0,3), newTopRight.slice(0,3)];
-    sides.push(curSide);
-  }
-  return sides;
+  return figure.map(point => multiply(point, rotAroundVector))
 }
+
+//takes a unit vector parallel to either the x axis or y axis
+//orientation of the ring: horizontal or vertical
+//calculates the translation needed for the next section based on the past one.
+//returns array of all figures' coordinates in x,y,z style arrays: [[x,y,z],[x,y,z]]
+function createRing(numSides, width, orient, figure) {
+  var curAngle, rotFigure, translation, transMatrix, curSide, vector;
+  var angleDeg = (180 - (numSides-2) * 180 / numSides);
+  var angle = (180 - (numSides-2) * 180 / numSides) * Math.PI / 180;
+  var originJointEdge = (orient === "hor") ? [0,3,1] : [3,2,0];
+  var joint = originJointEdge.map(point => figure[point]);
+  var upperLefts = [figure];
+  vector = multiply(1 / width, subtract(joint[1], joint[0]));
+  for (var i = 0; i < numSides - 1; i++) {
+    curAngle = angle * (i + 1);
+    rotFigure = rotAroundVector(curAngle, vector, figure);
+    translation = subtract(joint[0], rotFigure[originJointEdge[2]]);
+    curSide = rotFigure.map(point => add(point, translation))
+    joint = originJointEdge.map(point => curSide[point]);
+    upperLefts.push(curSide);
+  }
+  return upperLefts;
+}
+
 export default createRing
