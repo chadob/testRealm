@@ -2,7 +2,7 @@
 // i use (numSides-2) * 180 / numSides) to figure out what degrees a regular polygon's angles are
 // I then subtract it from 180 to figure out rotation amount
 // I then multiply by whatever side it is. 0,1,2...
-function createStyles(className, width, height, background, sides, numSides) {
+function createRegularStyles(className, width, height, background, sides, numSides) {
   var styles = {};
   sides.map((ring, ringIdx) => {
     ring.map((side, sideIdx) => {
@@ -18,7 +18,6 @@ function createStyles(className, width, height, background, sides, numSides) {
       }
     })
   });
-  console.log(styles)
   return styles;
 }
-export default createStyles
+export default createRegularStyles

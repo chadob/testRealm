@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import createRing from '../helperFunctions/createRingAroundAnyAxis.js';
+import createRing from '../helperFunctions/createRing.js';
 import createSphere from '../helperFunctions/createSphere.js';
-import createStyles from '../helperFunctions/createStyles.js';
+import createSphereStyles from '../helperFunctions/createSphereStyles.js';
 import Sphere from '../components/sphere'
 
 class SphereContainer extends Component {
@@ -10,29 +10,28 @@ class SphereContainer extends Component {
     super(props)
     this.createRing = this.createRing.bind(this);
     this.createSphere = this.createSphere.bind(this);
-    this.createStyles = this.createStyles.bind(this);
+    this.createSphereStyles = this.createSphereStyles.bind(this);
     this.state = {
       sides: [],
       styles: {}
     }
   }
-  createRing(numSides, width, vector, figure) {
-    return createRing(numSides, width, vector, figure)
+  createRing(numSides, width, height, vector, figure) {
+    return createRing(numSides, width, height, vector, figure)
   }
-  createSphere(numSides, width, createRing) {
-    return createSphere(numSides, width, createRing)
+  createSphere(numSides, width, height, createRing) {
+    return createSphere(numSides, width, height, createRing)
   }
-  createStyles(className, width, height, background, sides, numSides) {
-    return createStyles(className, width, height, background, sides, numSides);
+  createSphereStyles(className, width, height, background, sides, numSides) {
+    return createSphereStyles(className, width, height, background, sides, numSides);
   }
   componentDidMount() {
-    var sides = this.createSphere(this.props.numSides, this.props.width, this.createRing);
-    console.log(sides)
+    var sides = this.createSphere(this.props.numSides, this.props.width, this.props.height, this.createRing);
     this.setState((state, props) => {
       return {
         ...state,
         sides: sides,
-        styles: this.createStyles(props.className, props.width, props.height, 'red', sides, props.numSides)
+        styles: this.createSphereStyles(props.className, props.width, props.height, 'red', sides, props.numSides)
       };
     });
   }

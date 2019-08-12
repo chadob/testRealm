@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import createShape from '../helperFunctions/createShape.js';
-import createStyles from '../helperFunctions/createStyles.js';
+import createRegularStyles from '../helperFunctions/createRegularStyles.js';
 import Regular from '../components/regular'
 
 class RegularContainer extends Component {
   constructor(props) {
     super(props)
     this.createShape = this.createShape.bind(this);
-    this.createStyles = this.createStyles.bind(this);
+    this.createRegularStyles = this.createRegularStyles.bind(this);
     this.state = {
       sides: [],
       styles: {}
@@ -17,8 +17,8 @@ class RegularContainer extends Component {
   createShape(numSides, width, className) {
     return createShape(numSides, width, className)
   }
-  createStyles(className, width, height, background, sides, numSides) {
-    return createStyles(className, width, height, background, sides, numSides);
+  createRegularStyles(className, width, height, background, sides, numSides) {
+    return createRegularStyles(className, width, height, background, sides, numSides);
   }
   componentDidMount() {
     var sides = this.createShape(this.props.numSides, this.props.width, this.props.className);
@@ -26,7 +26,7 @@ class RegularContainer extends Component {
       return {
         ...state,
         sides: sides,
-        styles: this.createStyles(props.className, props.width, props.height, 'red', sides, props.numSides)
+        styles: this.createRegularStyles(props.className, props.width, props.height, 'red', sides, props.numSides)
       };
     });
   }

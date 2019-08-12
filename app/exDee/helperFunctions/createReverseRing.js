@@ -26,13 +26,13 @@ function rotAroundVector(angle, vector, figure) {
 //orientation of the ring: horizontal or vertical
 //calculates the translation needed for the next section based on the past one.
 //returns array of all figures' coordinates in x,y,z style arrays: [[x,y,z],[x,y,z]]
-function createRing(numSides, width, orient, figure) {
+function createReverseRing(numSides, width, orient, figure) {
   var curAngle, rotFigure, translation, transMatrix, curSide, vector;
   var angleDeg = (180 - (numSides-2) * 180 / numSides);
   var angle = (180 - (numSides-2) * 180 / numSides) * Math.PI / 180;
-  var originJointEdge = (orient === "hor") ? [0,3,1] : [3,2,0];
+  var originJointEdge = (orient === "hor") ? [0,3,1] : [0,1,3];
   var joint = originJointEdge.map(point => figure[point]);
-  var upperLefts = [figure];
+  var pieces = [figure];
   vector = multiply(1 / width, subtract(joint[1], joint[0]));
   for (var i = 0; i < numSides - 1; i++) {
     curAngle = angle * (i + 1);
@@ -40,9 +40,9 @@ function createRing(numSides, width, orient, figure) {
     translation = subtract(joint[0], rotFigure[originJointEdge[2]]);
     curSide = rotFigure.map(point => add(point, translation))
     joint = originJointEdge.map(point => curSide[point]);
-    upperLefts.push(curSide);
+    pieces.push(curSide);
   }
-  return upperLefts;
+  return pieces;
 }
 
-export default createRing
+export default createReverseRing
