@@ -2,7 +2,7 @@ const cylinder = (
   state = {
     height: 200,
     width: 200,
-    length: 400,
+    diameter: 400,
     windowHeight: 0,
     windowWidth: 0
   }, action) => {

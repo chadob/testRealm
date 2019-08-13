@@ -1,11 +1,11 @@
 const torus = (
   state = {
-    height: 20,
-    width: 40,
+    height: 100,
+    width: 10,
     length: 20,
     windowHeight: 0,
     windowWidth: 0,
-    aroundXSides: 10,
+    aroundXSides: 4,
     aroundYSides: 20,
     className: 'torus'
   }, action) => {

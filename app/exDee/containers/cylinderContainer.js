@@ -1,54 +1,51 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { resizeWindow } from '../actions'
-import Cylinder from '../components/cylinder'
+import createRing from '../helperFunctions/createRing.js';
+import createCylinder from '../helperFunctions/createCylinder.js';
+import createCylinderStyles from '../helperFunctions/createCylinderStyles.js';
+import Cylinder from '../components/sphere'
 
 class CylinderContainer extends Component {
   constructor(props) {
     super(props)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.createRing = this.createRing.bind(this);
+    this.createCylinder = this.createCylinder.bind(this);
+    this.createCylinderStyles = this.createCylinderStyles.bind(this);
+    this.state = {
+      sides: [],
+      styles: {}
+    }
   }
-
-  updateWindowDimensions() {
-    this.props.resizeWindow(window.innerWidth, window.innerHeight)
+  createRing(width, height, diameter vector, figure) {
+    return createRing(width, height, diameter vector, figure)
   }
-
+  createCylinder(width, height, diameter createRing, createReverseRing) {
+    return createCylinder(width, height, diameter createRing, createReverseRing)
+  }
+  createCylinderStyles(className, width, height, diameter background, sides) {
+    return createCylinderStyles(className, width, height, diameter background, sides);
+  }
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
+    var sides = this.createCylinder(this.props.width, this.props.height, this.props.diameter this.createRing);
+    this.setState((state, props) => {
+      return {
+        ...state,
+        sides: sides,
+        styles: this.createCylinderStyles(props.className, props.width, props.height, props.diameter 'red', sides)
+      };
+    });
   }
 
   render(){
-    console.log(this.props)
     return(
       <Cylinder
-        length={this.props.length}
+        sides={this.state.sides}
+        styles={this.state.styles}
+        diameter={this.props.diameter}
         height={this.props.height}
         width={this.props.width}
-        windowWidth={this.props.windowWidth}
-        windowHeight={this.props.windowHeight}
+        className={this.props.className}
       />
     );
   }
 }
-
-//add name of reducer
-const mapStateToProps = state => ({
-  length: state.index.cylinder.length,
-  height: state.index.cylinder.height,
-  width: state.index.cylinder.width,
-  windowWidth: state.index.cylinder.windowWidth,
-  windowHeight: state.index.cylinder.windowHeight
-})
-
-const mapDispatchToProps = dispatch => ({
-  resizeWindow: (windowWidth, windowHeight) => dispatch(resizeWindow(windowWidth, windowHeight)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CylinderContainer)

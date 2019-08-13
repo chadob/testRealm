@@ -7,7 +7,7 @@ function createTorusStyles(className, width, height, background, sides, aroundYS
   sides.map((ring, ringIdx) => {
     ring.map((side, sideIdx) => {
       styles["ring" + ringIdx + "side" + sideIdx] = {
-        // outline: "1px solid black",
+        outline: "1px solid black",
         transformOrigin: "top left",
         // backfaceVisibility: "hidden",
         position: "absolute",
