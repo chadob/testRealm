@@ -12,6 +12,7 @@ class GraphContainer extends Component {
     this.createOdds = this.createOdds.bind(this);
     this.maxBars = this.maxBars.bind(this);
     this.minBars = this.minBars.bind(this);
+    this.regBars = this.regBars.bind(this);
     this.state = {
       numberPicker: [],
       bars: {
@@ -20,47 +21,61 @@ class GraphContainer extends Component {
     }
   }
   timedAdjust(values, numberPicker) {
-    setInterval(()=>{
-      this.setState({
-        ...state,
-        bars: {
-          ...this.state.bars,
-          values: this.moveBars(values, numberPicker)
-        }
-      });
-    }, 10000);
+    var newValues;
+    this.setState({
+      updater: setInterval(()=>{
+        newValues = this.moveBars(values,numberPicker)
+        this.setState({
+          ...this.state,
+          bars: {
+            ...this.state.bars,
+            values: newValues
+          }
+        });
+      }, 500)
+    });
   }
   moveBars(values, numberPicker) {
     return moveBars(values, numberPicker);
   }
-
+//creates the numberpicker array, and once it is added to state,
+//makes an auto updater to the visualizer
   createOdds(range) {
-    console.log(createOdds)
     this.setState({
       ...this.state,
       numberPicker: createOdds(range)
-    })
+    }, () => this.timedAdjust(this.state.bars.values, this.state.numberPicker)
+    )
   }
-  maxBars(values) {
+
+  maxBars(updater) {
+    clearTimeout(updater);
     this.setState({
-      ...state,
+      ...this.state,
       bars: {...this.state.bars, values: this.state.bars.values.map(value => 99)}
     })
   }
-  minBars(values) {
+  minBars(updater) {
+    clearTimeout(updater);
     this.setState({
-      ...state,
+      ...this.state,
       bars: {...this.state.bars, values: this.state.bars.values.map(value => 0)}
     })
+  }
+  regBars(updater) {
+    this.timedAdjust(this.state.bars.values, this.state.numberPicker);
   }
   componentDidMount() {
     this.createOdds(this.props.range)
   }
 
   render(){
-    console.log(this.state)
     return(
       <Graph
+        updater={this.state.updater}
+        maxBars={this.maxBars}
+        minBars={this.minBars}
+        regBars={this.regBars}
         bars={this.state.bars.values.map((value, i) => {
           return {value: value, color: this.props.colors[i]}
         })}
