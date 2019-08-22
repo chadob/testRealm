@@ -3,6 +3,7 @@ const cuboid = (
     height: 200,
     width: 200,
     length: 400,
+    className: "bob",
     windowHeight: 0,
     windowWidth: 0
   }, action) => {

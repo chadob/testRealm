@@ -4,6 +4,11 @@
 // I then multiply by whatever side it is. 0,1,2...
 function createTorusStyles(className, width, height, background, sides, aroundYSides, aroundXSides) {
   var styles = {};
+  styles[className] = {
+  	position: "absolute",
+  	transformStyle: "preserve-3d",
+  	transformOrigin: "top left"
+  }
   sides.map((ring, ringIdx) => {
     ring.map((side, sideIdx) => {
       styles["ring" + ringIdx + "side" + sideIdx] = {

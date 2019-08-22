@@ -8,7 +8,6 @@ import { Switch, Route } from 'react-router'; // react-router v4
 import App from "./App.js";
 
 const store = createStore(reducer)
-console.log(reducer)
 render(
   <Provider store={store}>
     <App />

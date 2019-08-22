@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import createRing from '../helperFunctions/createRing.js';
 import createSphere from '../helperFunctions/createSphere.js';
 import createSphereStyles from '../helperFunctions/createSphereStyles.js';
@@ -50,15 +49,4 @@ class SphereContainer extends Component {
   }
 }
 
-//add name of reducer
-const mapStateToProps = state => ({
-  length: state.index.regular.length,
-  height: state.index.regular.height,
-  width: state.index.regular.width,
-  numSides: state.index.regular.numSides,
-  className: state.index.regular.className
-})
-
-export default connect(
-  mapStateToProps
-)(SphereContainer)
+export default SphereContainer

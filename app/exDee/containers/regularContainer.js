@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import createShape from '../helperFunctions/createShape.js';
 import createRegularStyles from '../helperFunctions/createRegularStyles.js';
 import Regular from '../components/regular'
@@ -45,15 +44,5 @@ class RegularContainer extends Component {
   }
 }
 
-//add name of reducer
-const mapStateToProps = state => ({
-  length: state.index.regular.length,
-  height: state.index.regular.height,
-  width: state.index.regular.width,
-  numSides: state.index.regular.numSides,
-  className: state.index.regular.className
-})
 
-export default connect(
-  mapStateToProps
-)(RegularContainer)
+export default RegularContainer

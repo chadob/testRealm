@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import createRing from '../helperFunctions/createRing.js';
 import createTorus from '../helperFunctions/createTorus.js';
 import createTorusStyles from '../helperFunctions/createTorusStyles.js';
@@ -50,16 +49,4 @@ class TorusContainer extends Component {
   }
 }
 
-//add name of reducer
-const mapStateToProps = state => ({
-  length: state.index.torus.length,
-  height: state.index.torus.height,
-  width: state.index.torus.width,
-  aroundXSides: state.index.torus.aroundXSides,
-  aroundYSides: state.index.torus.aroundYSides,
-  className: state.index.torus.className
-})
-
-export default connect(
-  mapStateToProps
-)(TorusContainer)
+export default TorusContainer

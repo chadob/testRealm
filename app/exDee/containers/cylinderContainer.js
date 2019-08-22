@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import createRing from '../helperFunctions/createRing.js';
+import createCylinderRing from '../helperFunctions/createCylinderRing.js';
 import createCylinder from '../helperFunctions/createCylinder.js';
 import createCylinderStyles from '../helperFunctions/createCylinderStyles.js';
-import Cylinder from '../components/sphere'
+import Cylinder from '../components/cylinder'
 
 class CylinderContainer extends Component {
   constructor(props) {
@@ -16,22 +16,25 @@ class CylinderContainer extends Component {
       styles: {}
     }
   }
-  createRing(width, height, diameter vector, figure) {
-    return createRing(width, height, diameter vector, figure)
+  createRing(aroundXSides, width, height, vector, figure) {
+    return createRing(aroundXSides, width, height, vector, figure)
   }
-  createCylinder(width, height, diameter createRing, createReverseRing) {
-    return createCylinder(width, height, diameter createRing, createReverseRing)
+  createCylinderRing(aroundXSides, width, height, diameter, vector, figure) {
+    return createCylinderRing(aroundXSides, width, height, diameter, vector, figure)
   }
-  createCylinderStyles(className, width, height, diameter background, sides) {
-    return createCylinderStyles(className, width, height, diameter background, sides);
+  createCylinder(aroundYSides, aroundXSides, width, height, diameter, createRing, createCylinderRing) {
+    return createCylinder(aroundYSides, aroundXSides, width, height, diameter, createRing, createCylinderRing)
+  }
+  createCylinderStyles(className, width, height, diameter, background, sides, aroundYSides, aroundXSides) {
+    return createCylinderStyles(className, width, height, diameter, background, sides, aroundYSides, aroundXSides);
   }
   componentDidMount() {
-    var sides = this.createCylinder(this.props.width, this.props.height, this.props.diameter this.createRing);
+    var sides = this.createCylinder(this.props.aroundYSides, this.props.aroundXSides, this.props.width, this.props.height, this.props.diameter, this.createRing, this.createCylinderRing);
     this.setState((state, props) => {
       return {
         ...state,
         sides: sides,
-        styles: this.createCylinderStyles(props.className, props.width, props.height, props.diameter 'red', sides)
+        styles: this.createCylinderStyles(props.className, props.width, props.height, props.diameter, 'red', sides, props.aroundYSides, props.aroundXSides)
       };
     });
   }
@@ -49,3 +52,6 @@ class CylinderContainer extends Component {
     );
   }
 }
+
+
+export default CylinderContainer

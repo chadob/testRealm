@@ -1,54 +1,47 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { resizeWindow } from '../actions'
+import createCuboid from '../helperFunctions/createCuboid.js';
+import createCuboidStyles from '../helperFunctions/createCuboidStyles.js';
 import Cuboid from '../components/cuboid'
 
 class CuboidContainer extends Component {
   constructor(props) {
     super(props)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.createCuboid = this.createCuboid.bind(this);
+    this.createCuboidStyles = this.createCuboidStyles.bind(this);
+    this.state = {
+      sides: [],
+      styles: {}
+    }
   }
-
-  updateWindowDimensions() {
-    this.props.resizeWindow(window.innerWidth, window.innerHeight)
+  createCuboid(aroundYSides, aroundXSides, width, height, length, createRing, createCuboidRing) {
+    return createCuboid(aroundYSides, aroundXSides, width, height, length, createRing, createCuboidRing)
   }
-
+  createCuboidStyles(className, width, height, length, background, sides, aroundYSides, aroundXSides) {
+    return createCuboidStyles(className, width, height, length, background, sides, aroundYSides, aroundXSides);
+  }
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
+    var sides = this.createCuboid(this.props.aroundYSides, this.props.aroundXSides, this.props.width, this.props.height, this.props.length, this.createRing, this.createCuboidRing);
+    this.setState((state, props) => {
+      return {
+        ...state,
+        sides: sides,
+        styles: this.createCuboidStyles(props.className, props.width, props.height, props.length, 'red', sides, props.aroundYSides, props.aroundXSides)
+      };
+    });
   }
 
   render(){
-    console.log(this.props)
     return(
       <Cuboid
+        sides={this.state.sides}
+        styles={this.state.styles}
         length={this.props.length}
         height={this.props.height}
         width={this.props.width}
-        windowWidth={this.props.windowWidth}
-        windowHeight={this.props.windowHeight}
+        className={this.props.className}
       />
     );
   }
 }
 
-//add name of reducer
-const mapStateToProps = state => ({
-  length: state.index.cuboid.length,
-  height: state.index.cuboid.height,
-  width: state.index.cuboid.width,
-  windowWidth: state.index.cuboid.windowWidth,
-  windowHeight: state.index.cuboid.windowHeight
-})
-
-const mapDispatchToProps = dispatch => ({
-  resizeWindow: (windowWidth, windowHeight) => dispatch(resizeWindow(windowWidth, windowHeight)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CuboidContainer)
+export default CuboidContainer

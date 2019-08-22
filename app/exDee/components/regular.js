@@ -3,7 +3,7 @@ import React from 'react';
 class Regular extends React.Component {
   render() {
     return (
-      <div className="this.props.className">
+      <div className="this.props.className" style={this.props.styles[this.props.className]}>
         {
           this.props.sides && this.props.sides.length > 0 && this.props.sides.map( (side, idx) => {
             return (
